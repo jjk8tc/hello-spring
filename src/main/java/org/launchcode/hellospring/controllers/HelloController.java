@@ -16,33 +16,35 @@ public class HelloController {
 //    }
 
     //Handles request at path /hello/goodbye
-//    @GetMapping("goodbye")
-//    public String goodbye(){
-//        return "Goodbye, Spring!";
-//    }
+    @GetMapping("goodbye")
+    public String goodbye(){
+        return "Goodbye, Spring!";
+    }
 
     //Handle requests of the form /hello?name=LaunchCode
     @RequestMapping(method= {RequestMethod.GET, RequestMethod.POST})
-    String helloWithQueryParam(@RequestParam String name, String language){
-        if (language.equals("English")){
-            return "Hello, " + name + "!";
-        } else if(language.equals("French")){
-            return "Bonjuor, " + name;
-        } else{
-            return "WTF";
-        }
+    String helloWithQueryParam(@RequestParam String name){
+//        if (language.equals("English")){
+//            return "Hello, " + name + "!";
+//        } else if(language.equals("French")){
+//            return "Bonjuor, " + name;
+//        } else{
+//            return "WTF";
+//        }
+        return "Hello " + name;
     }
 
     //Handle requests of the form /hello/LaunchCode
     @GetMapping("{name}")
-    public String helloWithPathParam(@PathVariable String name, String language){
-        if (language.equals("English")){
-            return "Hello, " + name + "!";
-        } else if(language.equals("French")){
-            return "Bonjuor, " + name;
-        } else{
-            return "WTF";
-        }
+    public String helloWithPathParam(@PathVariable String name){
+//        if (language.equals("English")){
+//            return "Hello, " + name + "!";
+//        } else if(language.equals("French")){
+//            return "Bonjuor, " + name;
+//        } else{
+//            return "WTF";
+//        }
+        return "Hello " + name;
     }
 
     // lives at /hello/form now
