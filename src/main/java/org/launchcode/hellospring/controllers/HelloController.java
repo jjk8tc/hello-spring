@@ -3,67 +3,66 @@ package org.launchcode.hellospring.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Locale;
+
+/**
+ * Created by Chris Bay
+ */
 @Controller
 @ResponseBody
-@RequestMapping("hello")
 public class HelloController {
 
-    //Handles request at path /hello
-//    @GetMapping("hello")
-//    @ResponseBody
-//    public String hello(){
-//        return "Hello, Spring!";
-//    }
 
-    //Handles request at path /hello/goodbye
-    @GetMapping("goodbye")
-    public String goodbye(){
-        return "Goodbye, Spring!";
+    // Handle requests of the form /hello?name=LaunchCode
+    @RequestMapping(value="hello", method = RequestMethod.POST)
+    public String helloPost(@RequestParam String name, @RequestParam String language) {
+        if (name == null) {
+            name = "World";
+        }
+
+        return createMessage(name, language);
     }
 
-    //Handle requests of the form /hello?name=LaunchCode
-    @RequestMapping(method= {RequestMethod.GET, RequestMethod.POST})
-    String helloWithQueryParam(@RequestParam String name){
-//        if (language.equals("English")){
-//            return "Hello, " + name + "!";
-//        } else if(language.equals("French")){
-//            return "Bonjuor, " + name;
-//        } else{
-//            return "WTF";
-//        }
-        return "Hello " + name;
+    public static String createMessage(String n, String l) {
+        String greeting = "";
+
+        if (l.equals("English")) {
+            greeting = "Hello";
+        }
+        else if (l.equals("French")) {
+            greeting = "Bonjour";
+        }
+        else if (l.equals("Italian")) {
+            greeting = "Bonjourno";
+        }
+        else if (l.equals("Spanish")) {
+            greeting = "Hola";
+        }
+        else if (l.equals("German")) {
+            greeting = "Hallo";
+        }
+
+        return greeting + " " + n;
     }
 
-    //Handle requests of the form /hello/LaunchCode
-    @GetMapping("{name}")
-    public String helloWithPathParam(@PathVariable String name){
-//        if (language.equals("English")){
-//            return "Hello, " + name + "!";
-//        } else if(language.equals("French")){
-//            return "Bonjuor, " + name;
-//        } else{
-//            return "WTF";
-//        }
-        return "Hello " + name;
-    }
 
-    // lives at /hello/form now
+    // /hello/form
     @GetMapping("form")
-    public String helloForm(){
+    public String helloForm() {
         return "<html>" +
-                    "<body>" +
-                        "<form action='hello'>" + //submit a request to /hello, by default that method is a GET request
-                            "<input type='text' name='name'>" +
-                            "<select name='language'>" +
-                                "<option value='English'>English</option>" +
-                                "<option value='French'>French</option>" +
-                                "<option value='Spanish'>Spanish</option>" +
-                                "<option value='Dutch'>Dutch</option>" +
-                                "<option value='German'>German</option>" +
-                            "</select>"+
-                            "<input type='submit' value='Greet Me!'>" +
-                        "</form>" +
-                    "</body>" +
+                "<body>" +
+                "<form action = '/hello' method = 'post'>" + // submit a request to /hello
+                "<input type = 'text' name = 'name' >" +
+                "<select name='language'>" +
+                "<option>English</option>" +
+                "<option>French</option>" +
+                "<option>Italian</option>" +
+                "<option>Spanish</option>" +
+                "<option>German</option>" +
+                "</select>" +
+                "<input type = 'submit' value = 'Greet Me!' >" +
+                "</form>" +
+                "</body>" +
                 "</html>";
     }
 
